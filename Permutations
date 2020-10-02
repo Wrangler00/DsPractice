@@ -1,0 +1,41 @@
+Given a collection of distinct integers, return all possible permutations.
+
+Example:
+
+Input: [1,2,3]
+Output:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+
+
+//to get all permutation of an array contaning distict intergers
+//cpp
+//solution using backtracking and swap
+
+class Solution {
+    vector<vector<int>> ans;
+    int sz;
+public:
+    vector<vector<int>> permute(vector<int>& nm) {
+        sz = nm.size();
+        permute(nm,0);
+        return ans;
+    }
+    
+    void permute(vector<int>& nm,int start){
+        if(start == sz)
+            ans.push_back(nm);
+        else
+            for(int i=start;i<sz;i++){
+                swap(nm[start],nm[i]);
+                permute(nm,start+1);
+                swap(nm[start],nm[i]);
+            }
+    }
+};
