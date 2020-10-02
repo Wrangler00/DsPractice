@@ -1,0 +1,65 @@
+
+
+//to get all permutations of array that can contains duplicate
+//cpp
+
+class Solution {
+    vector<vector<int>> ans;
+    int sz;
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nm) {
+        sz = nm.size();
+        sort(nm.begin(),nm.end());
+        vector<bool> used(sz,0);
+        backtrack(nm,vector<int>(),used);
+        return ans;
+    }
+    
+    void backtrack(vector<int>& nm,vector<int> tmp,vector<bool> &used){
+        if(tmp.size() == sz)
+            ans.push_back(tmp);
+        else{
+            for(int i=0;i<sz;i++){
+                if(used[i] || (i>0 && nm[i] == nm[i-1] && !used[i-1])) 
+                    continue;
+                
+                used[i] = true;
+                tmp.push_back(nm[i]);
+                
+                backtrack(nm,tmp,used);
+                
+                used[i] = false;
+                tmp.pop_back();
+            }
+        }
+    }
+};
+
+
+//solution 2 using swap [Same performance as above solution]
+
+
+class Solution {
+    vector<vector<int>> ans;
+    int sz;
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nm) {
+        sz = nm.size();
+        sort(nm.begin(),nm.end());
+        backtrack(nm,0);
+        return ans;
+    }
+    
+    void backtrack(vector<int> nm,int start){
+        if(start == sz-1)
+            ans.push_back(nm);
+        else{
+            for(int i=start;i<sz;i++){
+                if(i!=start && nm[i] == nm[start]) continue;
+                
+                swap(nm[i],nm[start]);
+                backtrack(nm,start+1);
+            }
+        }
+    }
+};
