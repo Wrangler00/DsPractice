@@ -1,0 +1,43 @@
+Given a collection of integers that might contain duplicates, nums, return all possible subsets (the power set).
+
+Note: The solution set must not contain duplicate subsets.
+
+Example:
+
+Input: [1,2,2]
+Output:
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]
+
+//to create all subsets of array which contains duplicates
+//cpp
+
+class Solution {
+    int sz;
+    vector<vector<int>> ans;
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nm) {
+        sz = nm.size();
+        sort(nm.begin(),nm.end());
+        backtracking(vector<int>(),nm,0);
+        return ans;
+    }
+    
+    void backtracking(vector<int> tmp,vector<int> nm,int start){
+        ans.push_back(tmp);
+        
+        for(int i=start;i<sz;i++){
+            if(i>start && nm[i] == nm[i-1]) continue;//to skip duplicates
+            
+            tmp.push_back(nm[i]);
+            backtracking(tmp,nm,i+1);
+            tmp.pop_back();
+        }
+    }
+};
