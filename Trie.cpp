@@ -79,3 +79,9 @@ public:
 private:
     TrieNode* root;
 };
+
+
+// Your Trie object will be instantiated and called as such:
+// Trie trie;
+// trie.insert("somestring");
+// trie.search("key");
